@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Electronics Order Form</title>
+
+  <script src="https://cdn.amplitude.com/script/9e139c325cd539f85b840be18a103663.js"></script>
+  <script>
+    window.amplitude.init('9e139c325cd539f85b840be18a103663', {
+      "fetchRemoteConfig":true, "autocapture":true
+    });
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    label, select, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    .confirmation {
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Electronics Order Form</h2>
+
+  <form id="orderForm">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="item">Select an Item:</label>
+    <select id="item" name="item" required>
+      <option value="">--Choose an item--</option>
+      <option value="Laptop">Laptop</option>
+      <option value="Smartphone">Smartphone</option>
+      <option value="Tablet">Tablet</option>
+      <option value="Headphones">Headphones</option>
+      <option value="Smartwatch">Smartwatch</option>
+    </select>
+
+    <button type="submit">Place Order</button>
+  </form>
+
+  <div class="confirmation" id="confirmationMessage"></div>
+
+  <script>
+    const form = document.getElementById('orderForm');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form from submitting normally
+      const name = document.getElementById('name').value;
+      const item = document.getElementById('item').value;
+
+      confirmationMessage.textContent = `Thank you, ${name}! Your order for a ${item} has been placed.`;
+
+      // Optional: Track order event
+      amplitude.track("Order Placed", {
+        name: name,
+        item: item
+      });
+    });
+  </script>
+
+</body>
+</html>
